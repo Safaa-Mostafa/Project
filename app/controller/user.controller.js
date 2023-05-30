@@ -19,7 +19,7 @@ var fcm = new FCM(serverKey);
 let mailTransport = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "sm6229639",
+    user: "sm6229639@gmail.com",
     pass: "wcffnlwtgbocomxo",
   },
 });
@@ -602,7 +602,7 @@ class user {
       const user = await userModel.findOne({ email: req.body.email });
       user.uniqueString = generateOTP()
       mailOptions = {
-        from: '"Clinic " <sm6229639gmail.com>',
+        from: '"Clinic "<sm6229639gmail.com>',
         to: req.body.email,
         subject: "Please confirm your Email account",
         html:
@@ -736,8 +736,9 @@ class user {
       const user = await userModel.findOne({
         RandomNumber: req.body.randomString,
       });
-      user.password = req.body.password;
+      
       if (!user) throw new Error("code is not valid");
+      user.password = req.body.password;
       await user.save();
       return  res.status(200).send({
         apiStatus: true,
