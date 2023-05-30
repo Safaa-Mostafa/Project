@@ -475,6 +475,13 @@ class user {
                 If you are having any issues with your account, please don't 
                 hesitate to contact us by replying to this mail.</div>`,
             };
+            mailTransport.sendMail(mailOptions, (err, info) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("Mail has been sent :- ", info.response);
+              }
+            });
             const adminUser = await userModel.findOne({ isAdmin: true });
             if (adminUser) {
               const Notification = adminUser.Notification;
@@ -491,13 +498,7 @@ class user {
             await adminUser.save();
             await doctorData.save();
             await doctor.save();
-            mailTransport.sendMail(mailOptions, (err, info) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("Mail has been sent :- ", info.response);
-              }
-            });
+            
             return res.status(200).send({
               apiStatus: true,
               return: {
@@ -564,8 +565,6 @@ class user {
                 If you are having any issues with your account, please don't 
                 hesitate to contact us by replying to this mail.</div>`,
             };
-            await PatientData.save();
-            await Patient.save();
             mailTransport.sendMail(mailOptions, (err, info) => {
               if (err) {
                 console.log(err);
@@ -573,6 +572,9 @@ class user {
                 console.log("Mail has been sent :- ", info.response);
               }
             });
+            await PatientData.save();
+            await Patient.save();
+          
             return res.status(200).send({
               apiStatus: true,
               data: { Patient, token },
