@@ -556,6 +556,8 @@ class user {
               userId: Patient._id,
             });
             Patient.uniqueString =generateOTP()
+            await PatientData.save();
+            await Patient.save();
             mailOptions = {
               from: '"Welcome to PHCP!" <sm6229639gmail.com>',
               to: req.body.email,
@@ -573,8 +575,7 @@ class user {
                 console.log("Mail has been sent :- ", info.response);
               }
             });
-            await PatientData.save();
-            await Patient.save();
+           
           
             return res.status(200).send({
               apiStatus: true,
