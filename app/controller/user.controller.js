@@ -603,6 +603,8 @@ class user {
     try {
       const user = await userModel.findOne({ email: req.body.email });
       user.uniqueString = generateOTP()
+      await user.save();
+
       mailOptions = {
         from: '"Clinic "<sm6229639gmail.com>',
         to: req.body.email,
@@ -618,7 +620,6 @@ class user {
           console.log("message sent");
         }
       });
-      await user.save();
       return res.status(200).send({
         apiStatus: true,
         data: { user },
@@ -676,6 +677,7 @@ class user {
         const data = await userModel.findByIdAndUpdate(userData.id, {
           $set: { RandomNumber: random },
         });
+        await data.save();
         mailOptions = {
           from: '"Clinic"<sm6229639gmail.com>',
           to: email,
