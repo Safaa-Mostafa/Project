@@ -466,6 +466,9 @@ class user {
               };
             }
             doctor.uniqueString =generateOTP()
+            await doctor.save();
+            await doctorData.save();
+
             mailOptions = {
               from: '"Welcome to PHCP!" <sm6229639gmail.com>',
               to: req.body.email,
@@ -496,8 +499,6 @@ class user {
               });
             }
             await adminUser.save();
-            await doctorData.save();
-            await doctor.save();
             
             return res.status(200).send({
               apiStatus: true,
