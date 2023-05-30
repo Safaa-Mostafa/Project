@@ -736,14 +736,16 @@ class user {
       const user = await userModel.findOne({
         RandomNumber: req.body.randomString,
       });
-      
+      if(user){
+        user.password = req.body.password;
+        await user.save();
+        return  res.status(200).send({
+          apiStatus: true,
+          message: "password changed successfully",
+        });
+      }
       if (!user) throw new Error("code is not valid");
-      user.password = req.body.password;
-      await user.save();
-      return  res.status(200).send({
-        apiStatus: true,
-        message: "password changed successfully",
-      });
+    
     } catch (e) {
       return  res.status(500).send({
         apiStatus: false,
