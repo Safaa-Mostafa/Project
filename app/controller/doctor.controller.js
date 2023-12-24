@@ -20,12 +20,10 @@ var mailOptions;
 class doctor {
   static all = async (req, res) => {
     try {
-      const doctors = await doctorModel.find({ isDoctor: true });
+//      const doctors = await doctorModel.find({ isDoctor: true });
 
       return  res.status(200).send({
         apiStatus: true,
-        data: doctors,
-
         message: "fetched",
       });
     } catch (e) {
